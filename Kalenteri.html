@@ -3,8 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <title>Kalenteri</title>
+    <link rel="stylesheet" href="tyyli.css">
 </head>
 <body>
 
 </body>
-</html>
+<div id="calendar"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+
+<button id="add-event">Lisää varaus</button>
+
+<script>
+    $(document).ready(function() {
+        var calendar = $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            defaultDate: '2023-02-01',
+            navLinks: true,
+            editable: true,
+            eventLimit: true,
+            events: [
+                {
+                    title: 'Tapahtuma 1',
+                    start: '2023-02-01T10:00:00',
+                    end: '2023-02-01T12:00:00',
+                },
+                {
+                    title: 'Tapahtuma 2',
+                    start: '2023-02-02T09:00:00',
+                    end: '2023-02-02T11:00:00',
+                }
+            ],
+            selectable: true,
+            select: function(start, end) {
+                var title = prompt('Varaus:');
+                var eventData;
+                if (title) {
+                    eventData = {
+                        title: title,
+                        start: start,
+                        end: end
+                    };
+                    $('#calendar').fullCalendar('renderEvent', eventData, true);
+                }
+                $('#calendar').fullCalendar('unselect');
+            },
+        });
+
+        $('#add-event').click(function() {
+            var title = prompt('Varausaika:');
+            var eventData;
+            if (title) {
+                eventData = {
+                    title: title,
+                    start: '2023-02-03',
+                    end: '2023-02-05'
+                };
+                $('#calendar').fullCalendar('renderEvent', eventData, true);
+
+            }
+        });
+    });
+</script>
+
+
