@@ -5,7 +5,7 @@ $password = $_POST["psw"];
 // Tietokannan yhteyden muodostaminen
 $servername = "localhost";
 $dbusername = "root";
-$dbpassword = "1234";
+$dbpassword = "Juures2";
 $dbname = "fillaritsygä";
 
 // Luodaan yhteys tietokantaan
