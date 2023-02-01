@@ -1,40 +1,46 @@
 <?php
-// Tietokannan yhteys
+$username = $_POST["uname"];
+$password = $_POST["psw"];
+
+// Tietokannan yhteyden muodostaminen
 $servername = "localhost";
-$username = "root";
-$password = "1234";
+$dbusername = "root";
+$dbpassword = "1234";
 $dbname = "fillaritsygä";
 
 // Luodaan yhteys tietokantaan
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
 
-// Tarkistetaan, onko yhteys onnistunut
+// Tarkistetaan yhteys
 if (!$conn) {
-    die("Yhteys epäonnistui: " . mysqli_connect_error());
+    die("Tietokantayhteys epäonnistui: " . mysqli_connect_error());
 }
 
-// Tarkistetaan, onko lomake lähetetty
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Hakee käyttäjätunnuksen ja salasanan lomakkeelta
-    $username = mysqli_real_escape_string($conn, $_POST['käyttäjätunnus']);
-    $password = mysqli_real_escape_string($conn, $_POST['salasana']);
+// Valitaan tietokannan taulu ja haetaan käyttäjän tiedot
+$sql = "SELECT käyttäjätunnus, salasana FROM käyttäjä WHERE käyttäjätunnus='$username'";
+$result = mysqli_query($conn, $sql);
 
-    // Tarkistaa, löytyykö käyttäjätunnus ja salasana tietokannasta
-    $sql = "SELECT * FROM käyttäjä WHERE käyttäjätunnus = '$username' and salasana = '$password'";
-    $result = mysqli_query($conn, $sql);
-
-    // Tarkistaa, onko käyttäjätunnus ja salasana oikein
-    if (mysqli_num_rows($result) == 1) {
-        // Kirjautuminen onnistui, ohjataan käyttäjä sisäänkirjautumissivulta
+if (mysqli_num_rows($result) > 0) {
+    // Käyttäjä löytyi, tarkistetaan salasana
+    $row = mysqli_fetch_assoc($result);
+    if($row["salasana"] == $password){
         header("Location: index.html");
-        exit();
-    } else {
-        // Kirjautuminen epäonnistui, näytetään virheviesti
-        $error = "Väärä käyttäjätunnus tai salasana";
+        exit;
+    } else{
+        echo "Väärä salasana. Yritä uudelleen.";
     }
-
-    // Suljetaan tietokantayhteys
-    mysqli_close($conn);
+} else {
+    echo "Käyttäjää ei löytynyt. Yritä uudelleen.";
 }
+
+// Suljetaan tietokantayhteys
+mysqli_close($conn);
 ?>
+
+
+
+
+
+
+
 
