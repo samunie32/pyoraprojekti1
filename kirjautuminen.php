@@ -6,7 +6,7 @@ $password = $_POST["psw"];
 $servername = "localhost";
 $dbusername = "root";
 $dbpassword = "Juures2";
-$dbname = "fillaritsygä";
+$dbname = "fillaritsyg\xC3\xA4";
 
 // Luodaan yhteys tietokantaan
 $conn = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
