@@ -3,7 +3,7 @@ h1 {
     color: white;
     text-align: left;
     padding: 30px;
-    background-color: #64c4e3;
+    background-color: #1e65f4;
 
 
 }
@@ -21,7 +21,7 @@ input[type=text], input[type=salasana] {
 }
 
 button {
-    background-color: #2cbcaf;
+    background-color: #1e65f4;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -79,7 +79,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #2db7c7;
+    background-color: #1e65f4;
 }
 
 
@@ -94,5 +94,5 @@ li a {
 }
 
 li a:hover {
-    background-color: #1620ae;
+    background-color: #1e65f4;
 }
