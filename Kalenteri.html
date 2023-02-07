@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Kalenteri</title>
-    <link rel="stylesheet" href="tyyli.css">
+    <link rel="stylesheet" href="Kalenteri.tyyli.css">
 </head>
 <body>
 <ul>
@@ -35,16 +35,7 @@
             editable: true,
             eventLimit: true,
             events: [
-                {
-                    title: 'Tapahtuma 1',
-                    start: '2023-02-01T10:00:00',
-                    end: '2023-02-01T12:00:00',
-                },
-                {
-                    title: 'Tapahtuma 2',
-                    start: '2023-02-02T09:00:00',
-                    end: '2023-02-02T11:00:00',
-                }
+
             ],
             selectable: true,
             select: function(start, end) {
@@ -77,5 +68,34 @@
         });
     });
 </script>
+
+
+<div id="id01" class="modal">
+
+    <form class="modal-content animate" action="kirjautuminen.php" method="post">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+        </div>
+
+        <div class="container">
+            <label for="uname"><b>Käyttäjätunnus</b></label>
+            <input type="text" placeholder="Syötä käyttäjätunnus" name="uname" required>
+
+            <label for="psw"><b>Salasana</b></label>
+            <input type="salasana" placeholder="Syötä salasana" name="psw" required>
+
+            <button type="submit">Kirjaudu</button>
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Muista minut
+            </label>
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Peruuta</button>
+            <span class="psw">Unohtuiko <a href="#">salasana?</a></span>
+        </div>
+    </form>
+</div>
 
 
