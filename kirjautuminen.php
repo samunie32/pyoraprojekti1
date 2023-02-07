@@ -22,7 +22,7 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     if($row["salasana"] == $password){
-        header("Location: index.html");
+        header("Location: vuokraukset.html");
         exit;
     } else{
         echo "Väärä salasana. Yritä uudelleen.";
