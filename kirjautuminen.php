@@ -7,7 +7,7 @@ $password = $_POST["psw"];
 $servername = "localhost";
 $dbusername = "root";
 $dbpassword = "1234";
-$dbname = "fillaritsygä";
+$dbname = "fillaritsyga";
 
 
 $conn = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
@@ -16,7 +16,7 @@ if (!$conn) {
     die("Tietokantayhteys epäonnistui: " . mysqli_connect_error());
 }
 
-$sql = "SELECT käyttäjätunnus, salasana FROM käyttäjä WHERE käyttäjätunnus='$username'";
+$sql = "SELECT kayttajatunnus, salasana FROM kayttaja WHERE kayttajatunnus='$username'";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
