@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 <?php
+session_start();
 $username = $_POST["uname"];
 $password = $_POST["psw"];
 
@@ -8,7 +8,6 @@ $servername = "localhost";
 $dbusername = "root";
 $dbpassword = "1234";
 $dbname = "fillaritsyga";
-
 
 $conn = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
 
@@ -22,7 +21,8 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     if($row["salasana"] == $password){
-        header("Location: vuokraukset.html");
+        $_SESSION["username"] = $username;
+        header("Location: vuokraukset.php");
         exit;
     } else{
         echo "Väärä salasana. Yritä uudelleen.";
@@ -31,9 +31,8 @@ if (mysqli_num_rows($result) > 0) {
     echo "Käyttäjää ei löytynyt. Yritä uudelleen.";
 }
 
-
 mysqli_close($conn);
-
+?>
 
 
 
