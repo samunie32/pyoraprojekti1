@@ -1,0 +1,92 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["username"])) {
+    header("Location: index.php");
+    exit;
+}
+
+$username = $_SESSION["username"];
+
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="tyyli.css">
+    <meta charset="UTF-8">
+    <title>pyörävuokraamo</title>
+</head>
+<body>
+<ul>
+    <li><a class="active" href=index.php style="float: left;font-size: 26px">Paras pyörävuokraamo</a></li>
+    <li><a  href=Kalenteri.html style="float:left;text-align: end">Kalenteri</a></li>
+    <li><a href="vuokraukset.html" style="float:left;text-align: end">Omat vuokraukset</a></li>
+    <li><button onclick="location.href='logout.php';" style="width:auto;float:right ">Kirjaudu ulos</button></li>
+</ul>
+<div id="id01" class="modal">
+
+    <form class="modal-content animate" action="kirjautuminen.php" method="post">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+        </div>
+
+        <div class="container">
+            <label for="uname"><b>Käyttäjätunnus</b></label>
+            <input type="text" placeholder="Syötä käyttäjätunnus" name="uname" required>
+
+            <label for="psw"><b>Salasana</b></label>
+            <input type="salasana" placeholder="Syötä salasana" name="psw" required>
+
+            <button type="submit">Kirjaudu</button>
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Muista minut
+            </label>
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Peruuta</button>
+            <span class="psw">Unohtuiko <a href="#">salasana?</a></span>
+        </div>
+    </form>
+</div>
+<h2>GT</h2>
+<div class="row">
+    <div class="leftcolumn">
+        <div class="card">
+            <h2>Sensor Carbon Expert 130/140 GX12</h2>
+            <img src="https://www.xxl.fi/filespin/c11390b6d7f040529c3c2fc5484d6ece?resize=1400,1400&quality=95&bgcolor=efefef" alt="GT pyörä" style="width:450px;height:450px;">
+        </div>
+    </div>
+    <div class="rightcolumn">
+        <div class="card">
+            <h2>15&#x20AC;/Tunti</h2>
+            <h3>T&aumlysjousitettu unisex-py&ouml;r&auml; polkuajoon, Sininen</h3>
+            <h4>T&auml;ll&auml; py&ouml;r&auml;ll&auml; kelpaa ajella!</h4>
+            <button onclick="location.href='Kalenteri.html';" class="button" style="vertical-align:middle"><span>Vuokraa t&auml;st&auml;</span></button>
+        </div>
+    </div>
+    <link rel="stylesheet" href="tyyli2.css">
+</div>
+
+<div class="footer">
+    <h2>Yhteystiedot </h2>
+    <h5>Puhelin: +358 000 000 00</h5>
+    <h5>Sähköposti: parhaatpyorat@on.com</h5>
+    <h5>Lähin myymälä: Ei ole.</h5>
+</div>
+<link rel="stylesheet" href="tyyli.css">
+</body>
+<script>
+
+    var modal = document.getElementById('id01');
+
+
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+

@@ -20,7 +20,8 @@ $username = $_SESSION["username"];
 </head>
 <body>
 <ul>
-    <li><a class="active" href=index.html style="float: left;font-size: 26px">Paras pyörävuokraamo</a></li>
+    <li><a class="active" href=index.php style="float: left;font-size: 26px">Paras pyörävuokraamo</a></li>
+
     <li><a  href=Kalenteri.html style="float:left;text-align: end">Kalenteri</a></li>
 
     <li><a href="vuokraukset.html" style="float:left;text-align: end">Omat vuokraukset</a></li>
