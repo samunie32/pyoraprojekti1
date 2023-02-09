@@ -102,5 +102,13 @@ li a:hover {
     padding: 30px;
     background-color: #1e65f4;
 }
-
-
+table{
+    text-align: center;
+}
+th{
+    margin: 0;
+    padding: 15px;
+    overflow: hidden;
+    background-color:dodgerblue;
+    color: white;
+}

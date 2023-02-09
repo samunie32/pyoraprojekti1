@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "Juures2";
+$password = "1234";
 $dbname = "fillaritsyga";
 
 // Create connection
@@ -21,7 +21,10 @@ $sql = "INSERT INTO kayttaja (nimi, puhelin, sahkoposti, kayttajatunnus, salasan
 VALUES ('$nimi', '$puhelin', '$sahkoposti', '$kayttajatunnus', '$salasana')";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location:rekisteri.html");
+    echo "<script type='text/javascript'>
+    alert('Rekisteröityminen onnistui! Voit nyt kirjautua sisään.');
+    window.location.href = 'index.html';
+    </script>";
     exit;
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -29,5 +32,3 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 ?>
-
-
