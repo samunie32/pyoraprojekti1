@@ -64,7 +64,7 @@ $username = $_SESSION["username"];
             <h2>15&#x20AC;/Tunti</h2>
             <h3>T&aumlysjousitettu unisex-py&ouml;r&auml; polkuajoon, Sininen</h3>
             <h4>T&auml;ll&auml; py&ouml;r&auml;ll&auml; kelpaa ajella!</h4>
-            <button onclick="location.href='Kalenteri.html';" class="button" style="vertical-align:middle"><span>Vuokraa t&auml;st&auml;</span></button>
+            <button onclick="location.href='vuokra.php';" class="button" style="vertical-align:middle"><span>Vuokraa t&auml;st&auml;</span></button>
         </div>
     </div>
     <link rel="stylesheet" href="tyyli2.css">
