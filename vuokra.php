@@ -92,7 +92,7 @@ if (isset($_POST['submit'])) {
 </h2>
 <body>
 
-<form action="calendar.php" method="post">
+<form action="vuokraukset.php.php" method="post">
     <div class="custom-select" style="width:200px; margin-bottom: 40px; margin-top: 25px;">
         <select name="option">
             <option value="0">Valitse pyörä:</option>
