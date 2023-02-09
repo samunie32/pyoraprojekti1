@@ -9,7 +9,7 @@
 <ul>
     <li><a class="active" href=index.php style="float: left;font-size: 26px">Paras pyörävuokraamo</a></li>
     <li><a  href=Kalenteri.html style="float:left;text-align: end">Kalenteri</a></li>
-    <li><a href="vuokraukset.php" style="float:left;text-align: end">Omat vuokraukset</a></li>
+    <li><a href="adminvuokra.php" style="float:left;text-align: end">vuokraukset</a></li>
     <li><button onclick="location.href='logout.php';" style="width:auto;float:right ">Kirjaudu ulos</button></li>
 </ul>
 
@@ -44,12 +44,10 @@ if ($conn->connect_error) {
 }
 
 // SQL-kysely
-$sql = "SELECT vuokraus.paivamaara, vuokraus.aika, vuokraus.tunnit, pyora.nimi, pyora.tuntihinta
-FROM kayttaja
-JOIN vuokraus ON kayttaja.ID = vuokraus.kayttaja_id
-JOIN pyora ON vuokraus.pyora_id = pyora.ID
-WHERE kayttaja.kayttajatunnus = '$username'";
-
+$sql = "SELECT v.paivamaara, v.aika, v.tunnit, k.Nimi, k.sahkoposti, k.puhelin, p.nimi, p.tuntihinta
+FROM vuokraus AS v
+JOIN kayttaja AS k ON v.kayttaja_id = k.ID
+JOIN pyora AS p ON v.pyora_id = p.ID";
 
 // Suoritetaan kysely
 $result = $conn->query($sql);
@@ -62,6 +60,9 @@ if ($result->num_rows > 0) {
                 <th>Päivämäärä</th>
                 <th>Aika</th>
                 <th>Tunnit</th>
+                <th>Käyttäjän nimi</th>
+                <th>Sähköposti</th>
+                <th>Puhelin</th>
                 <th>Pyörän nimi</th>
                 <th>Tuntihinta</th>
             </tr>';
@@ -70,6 +71,9 @@ if ($result->num_rows > 0) {
                 <td>' . $row["paivamaara"] . '</td>
                 <td>' . $row["aika"] . '</td>
                 <td>' . $row["tunnit"] . '</td>
+                <td>' . $row["Nimi"] . '</td>
+                <td>' . $row["sahkoposti"] . '</td>
+                <td>' . $row["puhelin"] . '</td>
                 <td>' . $row["nimi"] . '</td>
                 <td>' . $row["tuntihinta"] . '</td>
               </tr>';
