@@ -1,51 +1,46 @@
 <?php
 session_start();
-if (!isset($_SESSION["username"])) {
-    header("Location: index.php");
-    exit;
-}
+$username = $_SESSION['username'];
 
-$username = $_SESSION["username"];
+$date = $_POST['date'];
+$start_time = $_POST['start_time'];
+$end_time = $_POST['end_time'];
+$hours = $end_time - $start_time;
+$pyora_id = $_POST['pyora_id'];
 
-// Tietokantayhteyden muodostaminen
+// Tietokantayhteys
 $servername = "localhost";
 $username = "root";
-$password = "Juures2";
+$password = "1234";
 $dbname = "fillaritsyga";
 
+// Luodaan yhteys
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// Tarkistetaan yhteys
 if ($conn->connect_error) {
-    die("Tietokantayhteyden muodostaminen epäonnistui: " . $conn->connect_error);
+    die("Yhteysvirhe: " . $conn->connect_error);
 }
 
-if (isset($_POST['submit'])) {
-    $option = $_POST['option'];
-    $date = $_POST['date'];
-    $start_time = $_POST['start_time'];
-    $end_time = $_POST['end_time'];
+// Haetaan kayttaja_id taulusta kayttaja
+$kayttaja_query = "SELECT id FROM kayttaja WHERE kayttajatunnus = '$username'";
+$kayttaja_result = $conn->query($kayttaja_query);
+$kayttaja = $kayttaja_result->fetch_assoc();
+$kayttaja_id = $kayttaja['id'];
 
-    // Tarkista, että aloitus- ja lopetusaika ovat täsmälleen tasatunneilla
-    $start_time = date('H:00:00', strtotime($start_time));
-    $end_time = date('H:00:00', strtotime($end_time));
+// Luodaan sql-lause varauksen lisäämiseksi
+$sql = "INSERT INTO vuokraus (paivamaara, aika, tunnit, kayttaja_id, pyora_id)
+VALUES ('$date', '$start_time', '$hours', '$kayttaja_id', '$pyora_id')";
 
-    // Tarkista, että aika-väli on vähintään 1 tunti
-    $diff = strtotime($end_time) - strtotime($start_time);
-    if ($diff >= 3600) {
-        $sql = "INSERT INTO reservations (option, date, start_time, end_time)
-        VALUES ('$option', '$date', '$start_time', '$end_time')";
-
-        if ($conn->query($sql) === TRUE) {
-            $_SESSION['message'] = "Varaus tehty onnistuneesti!";
-        } else {
-            $_SESSION['message'] = "Virhe varausta tehdessä: " . $conn->error;
-        }
-    } else {
-        $_SESSION['message'] = "Varausaika on liian lyhyt. Vähimmäisaika-väli on 1 tunti.";
-    }
+// Suoritetaan sql-lause
+if ($conn->query($sql) === TRUE) {
+    echo "Varaus lisätty onnistuneesti.";
+} else {
+    echo "Virhe lisättäessä varausta: " . $conn->error;
 }
+
+$conn->close();
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,7 +87,7 @@ if (isset($_POST['submit'])) {
 </h2>
 <body>
 
-<form action="vuokraukset.php.php" method="post">
+<form action="vuokraukset.php" method="post">
     <div class="custom-select" style="width:200px; margin-bottom: 40px; margin-top: 25px;">
         <select name="option">
             <option value="0">Valitse pyörä:</option>
@@ -225,6 +220,8 @@ if (isset($_POST['submit'])) {
 </script>
 
 </html>
+
+
 
 
 

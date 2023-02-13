@@ -12,7 +12,7 @@
     <li><a href="vuokraukset.php" style="float:left;text-align: end">Omat vuokraukset</a></li>
     <li><button onclick="location.href='logout.php';" style="width:auto;float:right ">Kirjaudu ulos</button></li>
 </ul>
-
+<h3>Omat vuokraukset</h3> <br>
 <table>
     <thead>
 
@@ -31,12 +31,12 @@ $username = $_SESSION["username"];
 
 
 $servername = "localhost";
-$username = "root";
-$password = "Juures2";
+$user = "root";
+$password = "1234";
 $dbname = "fillaritsyga";
 
 // Luodaan yhteys tietokantaan
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $user, $password, $dbname);
 
 // Tarkistetaan, onko yhteys onnistunut
 if ($conn->connect_error) {
