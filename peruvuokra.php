@@ -2,7 +2,7 @@
 
 session_start();
 
-$conn = mysqli_connect("localhost", "root", "1234", "fillaritsyga");
+$conn = mysqli_connect("localhost", "root", "Juures2", "fillaritsyga");
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());

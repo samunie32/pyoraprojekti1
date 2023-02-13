@@ -20,7 +20,7 @@ $pyora_id = $_POST['pyora_id'];
 // Tietokantayhteys
 $servername = "localhost";
 $user = "root";
-$password = "1234";
+$password = "Juures2";
 $dbname = "fillaritsyga";
 
 // Luodaan yhteys
