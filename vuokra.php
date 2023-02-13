@@ -2,16 +2,22 @@
 session_start();
 $username = $_SESSION['username'];
 
+if (!isset($_SESSION["username"])) {
+    header("Location: index.php");
+    exit;
+}
+
 $date = $_POST['date'];
 $start_time = $_POST['start_time'];
 $end_time = $_POST['end_time'];
-$hours = $end_time - $start_time;
+$seconds = $end_time - $start_time;
+$hours = $seconds / 3600;
 $pyora_id = $_POST['pyora_id'];
 
 // Tietokantayhteys
 $servername = "localhost";
 $username = "root";
-$password = "1234";
+$password = "Juures2";
 $dbname = "fillaritsyga";
 
 // Luodaan yhteys
@@ -21,7 +27,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Yhteysvirhe: " . $conn->connect_error);
 }
-
+/*
 // Haetaan kayttaja_id taulusta kayttaja
 $kayttaja_query = "SELECT id FROM kayttaja WHERE kayttajatunnus = '$username'";
 $kayttaja_result = $conn->query($kayttaja_query);
@@ -38,7 +44,7 @@ if ($conn->query($sql) === TRUE) {
 } else {
     echo "Virhe lisättäessä varausta: " . $conn->error;
 }
-
+*/
 $conn->close();
 ?>
 <!DOCTYPE html>
@@ -87,7 +93,7 @@ $conn->close();
 </h2>
 <body>
 
-<form action="vuokraukset.php" method="post">
+<form action="vuokra2.php" method="post">
     <div class="custom-select" style="width:200px; margin-bottom: 40px; margin-top: 25px;">
         <select name="option">
             <option value="0">Valitse pyörä:</option>
@@ -96,6 +102,8 @@ $conn->close();
             <option value="3">Scott</option>
             <option value="4">Cube</option>
         </select>
+
+
     </div>
 
     <script>
@@ -186,7 +194,6 @@ $conn->close();
     Lopetusaika:
     <input type="time" name="end_time" value="<?php echo date('H:i', strtotime('+1 hour')); ?>" required><br><br>
     <input type="submit" name="submit" value="Varaa">
-
 </form>
 <link rel="stylesheet" href="tyyli2.css">
 

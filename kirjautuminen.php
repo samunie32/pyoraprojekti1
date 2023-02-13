@@ -3,10 +3,15 @@ session_start();
 $username = $_POST["uname"];
 $password = $_POST["psw"];
 
+if (!isset($_SESSION["username"])) {
+    header("Location: index.php");
+    exit;
+}
+
 // Tietokannan yhteyden muodostaminen
 $servername = "localhost";
 $dbusername = "root";
-$dbpassword = "1234";
+$dbpassword = "Juures2";
 $dbname = "fillaritsyga";
 
 $conn = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
