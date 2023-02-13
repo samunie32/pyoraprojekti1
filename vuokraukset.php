@@ -11,7 +11,7 @@ $username = $_SESSION["username"];
 
 $servername = "localhost";
 $user = "root";
-$password = "1234";
+$password = "Juures2";
 $dbname = "fillaritsyga";
 
 // Luodaan yhteys tietokantaan
@@ -104,7 +104,7 @@ if ($result->num_rows > 0) {
                 <td>' . $row["nimi"] . '</td>
                 <td>' . $row["tuntihinta"] . '</td>
                 <td>' . $total_cost . '</td>
-              </tr>';
+             </tr>';
 
     }
     echo '</table>';
@@ -117,3 +117,23 @@ if ($result->num_rows > 0) {
 $conn->close();
 
 ?>
+<div class="footer" style="margin-top: 350px;">
+    <h2>Yhteystiedot </h2>
+    <h5>Puhelin: +358 000 000 00</h5>
+    <h5>Sähköposti: parhaatpyorat@on.com</h5>
+    <h5>Lähin myymälä: Ei ole.</h5>
+</div>
+<link rel="stylesheet" href="tyyli.css">
+</body>
+<script>
+
+    var modal = document.getElementById('id01');
+
+
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
