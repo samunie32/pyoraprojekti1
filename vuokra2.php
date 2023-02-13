@@ -1,11 +1,14 @@
 <?php
 session_start();
-$username = $_SESSION['username'];
+
 
 if (!isset($_SESSION["username"])) {
     header("Location: index.php");
     exit;
 }
+$username = $_SESSION["username"];
+
+
 
 $date = $_POST['date'];
 $start_time = $_POST['start_time'];
@@ -21,12 +24,12 @@ $pyora_id = (int)$_POST['option'];
 
 // Tietokantayhteys
 $servername = "localhost";
-$username = "root";
-$password = "Juures2";
+$user = "root";
+$password = "1234";
 $dbname = "fillaritsyga";
 
 // Luodaan yhteys
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $user, $password, $dbname);
 
 // Tarkistetaan yhteys
 if ($conn->connect_error) {
@@ -37,12 +40,12 @@ if ($conn->connect_error) {
 $kayttaja_query = "SELECT id FROM kayttaja WHERE kayttajatunnus = '$username'";
 $kayttaja_result = $conn->query($kayttaja_query);
 $kayttaja = $kayttaja_result->fetch_assoc();
-//$kayttaja_id = $kayttaja['id'];
-$kayttaja_ID = (int)$_SESSION['kayttaja_ID'];
+$kayttaja_id = $kayttaja["id"];
+
 
 // Luodaan sql-lause varauksen lisäämiseksi
-$sql = "INSERT INTO vuokraus (paivamaara, aika, tunnit)
-VALUES ('$date', '$start_time', '$hours')";
+$sql = "INSERT INTO vuokraus (paivamaara, aika, tunnit,kayttaja_id)
+VALUES ('$date', '$start_time', '$hours','$kayttaja_id')";
 
 // Suoritetaan sql-lause
 if ($conn->query($sql) === TRUE) {

@@ -1,11 +1,13 @@
 <?php
 session_start();
-$username = $_SESSION['username'];
+
 
 if (!isset($_SESSION["username"])) {
     header("Location: index.php");
     exit;
 }
+$username = $_SESSION["username"];
+
 
 $date = $_POST['date'];
 $start_time = $_POST['start_time'];
@@ -16,12 +18,12 @@ $pyora_id = $_POST['pyora_id'];
 
 // Tietokantayhteys
 $servername = "localhost";
-$username = "root";
-$password = "Juures2";
+$user = "root";
+$password = "1234";
 $dbname = "fillaritsyga";
 
 // Luodaan yhteys
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $user, $password, $dbname);
 
 // Tarkistetaan yhteys
 if ($conn->connect_error) {
