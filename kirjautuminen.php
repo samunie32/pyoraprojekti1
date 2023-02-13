@@ -9,7 +9,7 @@ $password = $_POST["psw"];
 // Tietokannan yhteyden muodostaminen
 $servername = "localhost";
 $dbusername = "root";
-$dbpassword = "Juures2";
+$dbpassword = "1234";
 $dbname = "fillaritsyga";
 
 $conn = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);

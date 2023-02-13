@@ -11,7 +11,7 @@ $username = $_SESSION["username"];
 
 $servername = "localhost";
 $user = "root";
-$password = "Juures2";
+$password = "1234";
 $dbname = "fillaritsyga";
 
 // Luodaan yhteys tietokantaan
@@ -43,23 +43,26 @@ if ($conn->connect_error) {
 
     </thead>
     <tbody>
-    <form action="peruvuokra.php" method="post">
-        <div class="custom-select" style="width:200px; margin-bottom: 40px; margin-top: 25px;">
-            <select name="option">
-                <option value="0">Varauksen peruminen:</option>
-                <?php
+<form action="peruvuokra.php" method="post">
+    <div class="custom-select" style="width:200px; margin-bottom: 40px; margin-top: 25px;">
+        <select name="option">
+            <option value="0">Varauksen peruminen:</option>
+            <?php
+            $username = $_SESSION["username"];
 
-                $sql = "SELECT ID FROM vuokraus";
-                $result = mysqli_query($conn, $sql);
+            $sql = "SELECT ID FROM vuokraus WHERE kayttaja_id = (SELECT id FROM kayttaja WHERE kayttajatunnus = '$username')";
+            $result = mysqli_query($conn, $sql);
 
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<option value="'.$row['ID'].'">'.$row['ID'].'</option>';
-                }
-                ?>
-            </select>
-        </div>
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<option value="'.$row['ID'].'">'.$row['ID'].'</option>';
+            }
+            ?>
+        </select>
+    </div>
+    <input type="submit" value="Peru varaus">
+</form>
 
-    </form>
+
 
 
 

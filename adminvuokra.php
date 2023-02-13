@@ -32,7 +32,7 @@ $username = $_SESSION["username"];
 
 $servername = "localhost";
 $username = "root";
-$password = "Juures2";
+$password = "1234";
 $dbname = "fillaritsyga";
 
 // Luodaan yhteys tietokantaan

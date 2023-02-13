@@ -23,7 +23,7 @@ $option = $_POST['option'];
 // Tietokantayhteys
 $servername = "localhost";
 $user = "root";
-$password = "Juures2";
+$password = "1234";
 $dbname = "fillaritsyga";
 
 // Luodaan yhteys
