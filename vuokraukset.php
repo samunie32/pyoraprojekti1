@@ -62,6 +62,14 @@ if ($conn->connect_error) {
     <input type="submit" value="Peru varaus">
 </form>
 
+<div class="footer">
+    <h2>Yhteystiedot </h2>
+    <h5>Puhelin: +358 000 000 00</h5>
+    <h5>Sähköposti: parhaatpyorat@on.com</h5>
+    <h5>Lähin myymälä: Ei ole.</h5>
+</div>
+<link rel="stylesheet" href="tyyli.css">
+
 
 
 
