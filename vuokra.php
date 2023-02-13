@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 session_start();
 
 
@@ -59,7 +60,7 @@ $conn->close();
 <body>
 <ul>
     <li><a class="active" href=index.php style="float: left;font-size: 26px">Paras pyörävuokraamo</a></li>
-    <li><a  href=Kalenteri.html style="float:left;text-align: end">Kalenteri</a></li>
+
 
     <li><button onclick="location.href='logout.php';" style="width:auto;float:right ">Kirjaudu ulos</button></li>
 </ul>
