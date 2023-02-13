@@ -3,10 +3,8 @@ session_start();
 $username = $_POST["uname"];
 $password = $_POST["psw"];
 
-if (!isset($_SESSION["username"])) {
-    header("Location: index.php");
-    exit;
-}
+
+
 
 // Tietokannan yhteyden muodostaminen
 $servername = "localhost";
