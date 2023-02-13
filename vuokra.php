@@ -2,7 +2,44 @@
 session_start();
 $username = $_SESSION['username'];
 
+$date = $_POST['date'];
+$start_time = $_POST['start_time'];
+$end_time = $_POST['end_time'];
+$hours = $end_time - $start_time;
+$pyora_id = $_POST['pyora_id'];
 
+// Tietokantayhteys
+$servername = "localhost";
+$username = "root";
+$password = "1234";
+$dbname = "fillaritsyga";
+
+// Luodaan yhteys
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Tarkistetaan yhteys
+if ($conn->connect_error) {
+    die("Yhteysvirhe: " . $conn->connect_error);
+}
+
+// Haetaan kayttaja_id taulusta kayttaja
+$kayttaja_query = "SELECT id FROM kayttaja WHERE kayttajatunnus = '$username'";
+$kayttaja_result = $conn->query($kayttaja_query);
+$kayttaja = $kayttaja_result->fetch_assoc();
+$kayttaja_id = $kayttaja['id'];
+
+// Luodaan sql-lause varauksen lisäämiseksi
+$sql = "INSERT INTO vuokraus (paivamaara, aika, tunnit, kayttaja_id, pyora_id)
+VALUES ('$date', '$start_time', '$hours', '$kayttaja_id', '$pyora_id')";
+
+// Suoritetaan sql-lause
+if ($conn->query($sql) === TRUE) {
+    echo "Varaus lisätty onnistuneesti.";
+} else {
+    echo "Virhe lisättäessä varausta: " . $conn->error;
+}
+
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,7 +87,7 @@ $username = $_SESSION['username'];
 </h2>
 <body>
 
-<form method="post" action="vuokra2.php">
+<form action="vuokraukset.php" method="post">
     <div class="custom-select" style="width:200px; margin-bottom: 40px; margin-top: 25px;">
         <select name="option">
             <option value="0">Valitse pyörä:</option>
@@ -145,17 +182,16 @@ $username = $_SESSION['username'];
     Päivämäärä:
     <input type="date" name="date" value="<?php echo date('Y-m-d'); ?>" required><br><br>
     Aloitusaika:
-    <input type="time" name="start_time" value="<?php echo date('H'); ?>" required><br><br>
+    <input type="time" name="start_time" value="<?php echo date('H:i'); ?>" required><br><br>
     Lopetusaika:
-    <input type="time" name="end_time" value="<?php echo date('H', strtotime('+1 hour')); ?>" required><br><br>
-    <input action="vuokra2.php" method="post" type="submit" name="submit" value="Varaa" >
+    <input type="time" name="end_time" value="<?php echo date('H:i', strtotime('+1 hour')); ?>" required><br><br>
+    <input type="submit" name="submit" value="Varaa">
 
 </form>
 <link rel="stylesheet" href="tyyli2.css">
 
 <div class="message">
     <?php
-
     if (isset($_SESSION['message'])) {
         echo $_SESSION['message'];
         unset($_SESSION['message']);
