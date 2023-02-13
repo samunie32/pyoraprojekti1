@@ -1,3 +1,28 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["username"])) {
+    header("Location: index.php");
+    exit;
+}
+
+$username = $_SESSION["username"];
+
+
+$servername = "localhost";
+$user = "root";
+$password = "Juures2";
+$dbname = "fillaritsyga";
+
+// Luodaan yhteys tietokantaan
+$conn = new mysqli($servername, $user, $password, $dbname);
+
+// Tarkistetaan, onko yhteys onnistunut
+if ($conn->connect_error) {
+    die("Yhteys epäonnistui: " . $conn->connect_error);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,33 +44,26 @@
     </thead>
     <tbody>
     <form action="peruvuokra.php" method="post">
-        <input type="hidden" name="vuokraus_id" value="<?php echo $row['vuokraus.id']; ?>">
-        <input type="submit" value="Peru varaus">
+        <div class="custom-select" style="width:200px; margin-bottom: 40px; margin-top: 25px;">
+            <select name="option">
+                <option value="0">Varauksen peruminen:</option>
+                <?php
+
+                $sql = "SELECT ID FROM vuokraus";
+                $result = mysqli_query($conn, $sql);
+
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<option value="'.$row['ID'].'">'.$row['ID'].'</option>';
+                }
+                ?>
+            </select>
+        </div>
+
     </form>
 
+
+
 <?php
-session_start();
-
-if (!isset($_SESSION["username"])) {
-    header("Location: index.php");
-    exit;
-}
-
-$username = $_SESSION["username"];
-
-
-$servername = "localhost";
-$user = "root";
-$password = "1234";
-$dbname = "fillaritsyga";
-
-// Luodaan yhteys tietokantaan
-$conn = new mysqli($servername, $user, $password, $dbname);
-
-// Tarkistetaan, onko yhteys onnistunut
-if ($conn->connect_error) {
-    die("Yhteys epäonnistui: " . $conn->connect_error);
-}
 
 // SQL-kysely
 $sql = "SELECT vuokraus.paivamaara, vuokraus.aika, vuokraus.tunnit,vuokraus.id, pyora.nimi, pyora.tuntihinta
@@ -53,6 +71,8 @@ FROM kayttaja
 JOIN vuokraus ON kayttaja.ID = vuokraus.kayttaja_id
 JOIN pyora ON vuokraus.pyora_id = pyora.ID
 WHERE kayttaja.kayttajatunnus = '$username'";
+
+
 
 
 // Suoritetaan kysely
@@ -69,8 +89,10 @@ if ($result->num_rows > 0) {
                 <th>Tunnit</th>
                 <th>Pyörän nimi</th>
                 <th>Tuntihinta</th>
+                <th>Hinta yhteensä</th>
             </tr>';
     while ($row = $result->fetch_assoc()) {
+        $total_cost = $row["tuntihinta"] * $row["tunnit"];
         echo '<tr>
                 <td>' . $row["id"] . '</td>
                 <td>' . $row["paivamaara"] . '</td>
@@ -78,6 +100,7 @@ if ($result->num_rows > 0) {
                 <td>' . $row["tunnit"] . '</td>
                 <td>' . $row["nimi"] . '</td>
                 <td>' . $row["tuntihinta"] . '</td>
+                <td>' . $total_cost . '</td>
               </tr>';
 
     }

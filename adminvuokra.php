@@ -32,7 +32,7 @@ $username = $_SESSION["username"];
 
 $servername = "localhost";
 $username = "root";
-$password = "1234";
+$password = "Juures2";
 $dbname = "fillaritsyga";
 
 // Luodaan yhteys tietokantaan
@@ -65,8 +65,10 @@ if ($result->num_rows > 0) {
                 <th>Puhelin</th>
                 <th>Pyörän nimi</th>
                 <th>Tuntihinta</th>
+                <th>Hinta yhteensä</th>
             </tr>';
     while ($row = $result->fetch_assoc()) {
+        $total_cost = $row["tuntihinta"] * $row["tunnit"];
         echo '<tr>
                 <td>' . $row["paivamaara"] . '</td>
                 <td>' . $row["aika"] . '</td>
@@ -76,6 +78,7 @@ if ($result->num_rows > 0) {
                 <td>' . $row["puhelin"] . '</td>
                 <td>' . $row["nimi"] . '</td>
                 <td>' . $row["tuntihinta"] . '</td>
+                <td>' . $total_cost . '</td>
               </tr>';
     }
     echo '</table>';

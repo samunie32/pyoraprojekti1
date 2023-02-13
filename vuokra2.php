@@ -23,7 +23,7 @@ $option = $_POST['option'];
 // Tietokantayhteys
 $servername = "localhost";
 $user = "root";
-$password = "1234";
+$password = "Juures2";
 $dbname = "fillaritsyga";
 
 // Luodaan yhteys
@@ -41,10 +41,15 @@ $kayttaja_result = $conn->query($kayttaja_query);
 $kayttaja = $kayttaja_result->fetch_assoc();
 $kayttaja_id = $kayttaja["id"];
 
+if ($_POST['option'] == 0) {
+    echo "<script type='text/javascript'>alert('Valitse vuokrattava pyörä!'); window.location.href='vuokra.php';</script>";
+    exit();
+}
 
 // Luodaan sql-lause varauksen lisäämiseksi
 $sql = "INSERT INTO vuokraus (paivamaara, aika, tunnit, kayttaja_id, Pyora_ID)
 VALUES ('$date', '$start_time', '$hours','$kayttaja_id', $option)";
+
 
 if ($conn->query($sql) === TRUE) {
     echo "<script type='text/javascript'>
@@ -53,7 +58,11 @@ if ($conn->query($sql) === TRUE) {
     </script>";
     exit;
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "<script type='text/javascript'>
+    alert('Varaus epäonnistui!');
+    window.location.href = 'vuokra.php';
+    </script>";
+    exit;
 }
 
 
