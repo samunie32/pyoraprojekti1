@@ -23,7 +23,7 @@ $option = $_POST['option'];
 // Tietokantayhteys
 $servername = "localhost";
 $user = "root";
-$password = "Juures2";
+$password = "1234";
 $dbname = "fillaritsyga";
 
 // Luodaan yhteys
@@ -46,81 +46,16 @@ $kayttaja_id = $kayttaja["id"];
 $sql = "INSERT INTO vuokraus (paivamaara, aika, tunnit, kayttaja_id, Pyora_ID)
 VALUES ('$date', '$start_time', '$hours','$kayttaja_id', $option)";
 
-// Suoritetaan sql-lause
 if ($conn->query($sql) === TRUE) {
-    echo "Varaus lisätty onnistuneesti.";
-
-
+    echo "<script type='text/javascript'>
+    alert('Varaus onnistui!');
+    window.location.href = 'vuokraukset.php';
+    </script>";
+    exit;
 } else {
-    echo "Virhe lisättäessä varausta: " . $conn->error;
+    echo "Error: " . $sql . "<br>" . $conn->error;
 }
+
 
 $conn->close();
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="tyyli.css">
-    <meta charset="UTF-8">
-    <title>pyörävuokraamo</title>
-</head>
-<body>
-<ul>
-    <li><a class="active" href=index.php style="float: left;font-size: 26px">Paras pyörävuokraamo</a></li>
-    <li><a  href=Kalenteri.html style="float:left;text-align: end">Kalenteri</a></li>
-
-    <li><button onclick="location.href='logout.php';" style="width:auto;float:right ">Kirjaudu ulos</button></li>
-</ul>
-<div id="id01" class="modal">
-
-    <form class="modal-content animate" action="kirjautuminen.php" method="post">
-        <div class="imgcontainer">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-
-        </div>
-
-        <div class="container">
-            <label for="uname"><b>Käyttäjätunnus</b><br></label>
-            <input type="text" placeholder="Syötä käyttäjätunnus" name="uname" required>
-
-            <label for="psw"><b>Salasana</b></label>
-            <input type="salasana" placeholder="Syötä salasana" name="psw" required>
-
-            <button type="submit">Kirjaudu</button>
-            <label>
-                <input type="checkbox" checked="checked" name="remember"> Muista minut
-            </label>
-        </div>
-
-        <div class="container" style="background-color:#f1f1f1">
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Peruuta</button>
-            <span class="psw"> <a href="rekisteröityminen.html">Rekisteröidy</a></span>
-        </div>
-    </form>
-</div>
-<h2>
-    <title>Varauskalenteri</title>
-</h2>
-
-<div class="footer">
-    <h2>Yhteystiedot </h2>
-    <h5>Puhelin: +358 000 000 00</h5>
-    <h5>Sähköposti: parhaatpyorat@on.com</h5>
-    <h5>Lähin myymälä: Ei ole.</h5>
-</div>
-<link rel="stylesheet" href="tyyli2.css">
-</body>
-<script>
-
-    var modal = document.getElementById('id01');
-
-
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
-
-</html>
-

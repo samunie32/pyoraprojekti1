@@ -18,6 +18,9 @@
 
     </thead>
     <tbody>
+    <form action="peruvuokra.php" method="post">
+        <input type="submit" value="Peru varaus">
+    </form>
 
 <?php
 session_start();
@@ -73,10 +76,13 @@ if ($result->num_rows > 0) {
                 <td>' . $row["nimi"] . '</td>
                 <td>' . $row["tuntihinta"] . '</td>
               </tr>';
+
     }
     echo '</table>';
+
 } else {
     echo "Ei varauksia.";
+
 }
 
 $conn->close();
