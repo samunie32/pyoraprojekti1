@@ -19,6 +19,7 @@
     </thead>
     <tbody>
     <form action="peruvuokra.php" method="post">
+        <input type="hidden" name="vuokraus_id" value="<?php echo $row['vuokraus.id']; ?>">
         <input type="submit" value="Peru varaus">
     </form>
 
@@ -47,7 +48,7 @@ if ($conn->connect_error) {
 }
 
 // SQL-kysely
-$sql = "SELECT vuokraus.paivamaara, vuokraus.aika, vuokraus.tunnit, pyora.nimi, pyora.tuntihinta
+$sql = "SELECT vuokraus.paivamaara, vuokraus.aika, vuokraus.tunnit,vuokraus.id, pyora.nimi, pyora.tuntihinta
 FROM kayttaja
 JOIN vuokraus ON kayttaja.ID = vuokraus.kayttaja_id
 JOIN pyora ON vuokraus.pyora_id = pyora.ID
@@ -62,6 +63,7 @@ if ($result->num_rows > 0) {
     // Tulostetaan tiedot taulukossa
     echo '<table>
             <tr>
+                <th>id</th>
                 <th>Päivämäärä</th>
                 <th>Aika</th>
                 <th>Tunnit</th>
@@ -70,6 +72,7 @@ if ($result->num_rows > 0) {
             </tr>';
     while ($row = $result->fetch_assoc()) {
         echo '<tr>
+                <td>' . $row["id"] . '</td>
                 <td>' . $row["paivamaara"] . '</td>
                 <td>' . $row["aika"] . '</td>
                 <td>' . $row["tunnit"] . '</td>

@@ -34,10 +34,16 @@ if (mysqli_num_rows($result) > 0) {
         header("Location: vuokraukset.php");
         exit;
     } else{
-        echo "Väärä salasana. Yritä uudelleen.";
+        echo "<script type='text/javascript'>
+    alert('Väärä salasana. Yritä uudelleen.');
+    window.location.href = 'index.html';
+    </script>";
     }
 } else {
-    echo "Käyttäjää ei löytynyt. Yritä uudelleen.";
+    echo "<script type='text/javascript'>
+    alert('Käyttäjää ei löytynyt. Yritä uudelleen.');
+    window.location.href = 'index.html';
+    </script>";
 }
 
 mysqli_close($conn);
